@@ -3798,7 +3798,7 @@ BOOL CSoundFile::ReadABC(const uint8_t *lpStream, DWORD dwMemLength)
 	char *abcparts;
 	uint8_t partpat[27][2], *orderlist;
 	int orderlen;
-	enum { NOWHERE, INBETWEEN, INHEAD, INBODY, INSKIPFORX, INSKIPFORQUOTE } abcstate;
+	enum { NOWHERE, BETWEEN, INHEAD, INBODY, INSKIPFORX, INSKIPFORQUOTE } abcstate;
 	ABCEVENT_JUMPTYPE j;
 	ABCEVENT_X_EFFECT abceffect;
 	int abceffoper;
@@ -3924,7 +3924,7 @@ BOOL CSoundFile::ReadABC(const uint8_t *lpStream, DWORD dwMemLength)
 							break;
 					}
 					// fall through
-				case INBETWEEN:
+				case BETWEEN:
 					if( !strncmp(p,"X:",2) ) {
 						abcstate = INHEAD;
 #ifdef NEWMIKMOD
@@ -4084,7 +4084,7 @@ BOOL CSoundFile::ReadABC(const uint8_t *lpStream, DWORD dwMemLength)
 						break;
 					}
 					if( !strlen(p) )
-						abcstate = INBETWEEN;
+						abcstate = BETWEEN;
 					break;
 				case INSKIPFORQUOTE:
 						while( *p && *p != '"' )
@@ -4095,7 +4095,7 @@ BOOL CSoundFile::ReadABC(const uint8_t *lpStream, DWORD dwMemLength)
 						// fall through
 				case INBODY:
 					if( !strlen(p) && h->track ) { // end of this song
-						abcstate = h->pickrandom? INSKIPFORX: INBETWEEN;
+						abcstate = h->pickrandom? INSKIPFORX: BETWEEN;
 						// last but not least shut off all pending events
 						abc_recalculate_tracktime(h);
 						for( ttp=h->track; ttp; ttp=ttp->next )
