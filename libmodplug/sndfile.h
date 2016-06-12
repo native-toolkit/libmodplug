@@ -783,7 +783,7 @@ public:
 	static int FrequencyToTranspose(DWORD freq);
 	static void FrequencyToTranspose(MODINSTRUMENT *psmp);
 
-	// System-Dependant functions
+	// System-Dependent functions
 public:
 	static MODCOMMAND *AllocatePattern(UINT rows, UINT nchns);
 	static signed char* AllocateSample(UINT nbytes);
