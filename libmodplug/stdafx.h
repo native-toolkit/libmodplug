@@ -22,7 +22,7 @@
 #endif
 
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(HX_WINRT)
 
 #ifdef MSC_VER
 #pragma warning (disable:4201)
@@ -47,6 +47,24 @@ inline void ProcessPlugins(int n) {}
 #define strcasecmp(a,b) strcmp(a,b)
 #define strnicmp(a,b,c)		strncasecmp(a,b,c)
 #define HAVE_SINF 1
+
+#ifdef HX_WINRT
+#define lstrcpyn strncpy
+#define lstrcpy strcpy
+inline int8_t * GlobalAllocPtr(unsigned int, size_t size)
+{
+  int8_t * p = (int8_t *) malloc(size);
+  if (p != NULL) memset(p, 0, size);
+  return p;
+}
+inline static char* getenv(const char *name)
+{
+	return NULL;
+}
+#define GlobalFreePtr(p) free((void *)(p))
+#define wsprintf			sprintf
+#define WAVE_FORMAT_PCM 1
+#endif
 
 #else
 
