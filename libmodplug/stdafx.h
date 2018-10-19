@@ -24,6 +24,11 @@
 
 #if defined(_WIN32) || defined(HX_WINRT)
 
+#if defined(HX_WINRT) && !defined(_CRT_USE_WINAPI_FAMILY_DESKTOP_APP)
+//define getenv on older Windows 10 SDKs
+#define _CRT_USE_WINAPI_FAMILY_DESKTOP_APP
+#endif
+
 #ifdef MSC_VER
 #pragma warning (disable:4201)
 #pragma warning (disable:4514)
@@ -56,10 +61,6 @@ inline int8_t * GlobalAllocPtr(unsigned int, size_t size)
   int8_t * p = (int8_t *) malloc(size);
   if (p != NULL) memset(p, 0, size);
   return p;
-}
-inline static char* getenv(const char *name)
-{
-	return NULL;
 }
 #define GlobalFreePtr(p) free((void *)(p))
 #define wsprintf			sprintf
