@@ -404,7 +404,11 @@ void pat_init_patnames(void)
 	MMSTREAM *mmcfg;
 	strcpy(pathforpat, PATHFORPAT);
 	strcpy(timiditycfg, TIMIDITYCFG);
+#ifdef	HX_WINRT
+	p = NULL;
+#else
 	p = getenv(PAT_ENV_PATH2CFG);
+#endif
 	if( p ) {
 		strcpy(timiditycfg,p);
 		strcpy(pathforpat,p);

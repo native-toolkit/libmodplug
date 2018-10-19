@@ -1441,8 +1441,13 @@ BOOL CSoundFile::ReadMID(const BYTE *lpStream, DWORD dwMemLength)
 	mm.sz = dwMemLength;
 	mm.pos = 0;
 #endif
+#ifdef HX_WINRT
+	h->debug = NULL;
+	h->verbose = NULL;
+#else
 	h->debug = getenv(ENV_MMMID_DEBUG);
 	h->verbose = getenv(ENV_MMMID_VERBOSE);
+#endif
 	pat_resetsmp();
 	pat_init_patnames();
 	mmfseek(h->mmf,8,SEEK_SET);
@@ -1460,7 +1465,11 @@ BOOL CSoundFile::ReadMID(const BYTE *lpStream, DWORD dwMemLength)
 	m_nDefaultTempo = 0;
 	h->tracktime = 0;
 	h->speed = 6;
+#ifdef HX_WINRT
+	p = NULL;
+#else
 	p = (BYTE *)getenv(ENV_MMMID_SPEED);
+#endif
 	if( p && isdigit(*p) && p[0] != '0' && p[1] == '\0' ) {
 		// transform speed
 		t = *p - '0';

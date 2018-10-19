@@ -24,11 +24,6 @@
 
 #if defined(_WIN32) || defined(HX_WINRT)
 
-#if defined(HX_WINRT) && !defined(_CRT_USE_WINAPI_FAMILY_DESKTOP_APP)
-//define getenv on older Windows 10 SDKs
-#define _CRT_USE_WINAPI_FAMILY_DESKTOP_APP
-#endif
-
 #ifdef MSC_VER
 #pragma warning (disable:4201)
 #pragma warning (disable:4514)
