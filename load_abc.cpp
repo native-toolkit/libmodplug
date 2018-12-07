@@ -2404,7 +2404,11 @@ static ABCHANDLE *ABC_Init(void)
 		retval->line        = NULL;
 		strcpy(retval->gchord, "");
 		retval->barticks    = 0;
+#ifdef HX_WINRT
+		p = NULL;
+#else
 		p = getenv(ABC_ENV_NORANDOMPICK);
+#endif
 		if( p ) {
 			if( isdigit(*p) )
 				retval->pickrandom = atoi(p);
@@ -5050,7 +5054,12 @@ BOOL CSoundFile::ReadABC(const uint8_t *lpStream, DWORD dwMemLength)
 	ord  = calculated
 
 */
-	if( (p=getenv(ABC_ENV_DUMPTRACKS)) ) {
+#ifdef HX_WINRT
+	p = NULL;
+#else
+	p = getenv(ABC_ENV_DUMPTRACKS);
+#endif
+	if( p ) {
 		printf("P:%s\n",abcparts);
 		for( t=0; t<26; t++ )
 			if( partpat[t][1] >= partpat[t][0] )

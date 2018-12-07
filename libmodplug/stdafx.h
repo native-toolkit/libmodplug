@@ -57,10 +57,6 @@ inline int8_t * GlobalAllocPtr(unsigned int, size_t size)
   if (p != NULL) memset(p, 0, size);
   return p;
 }
-inline static char* getenv(const char *name)
-{
-	return NULL;
-}
 #define GlobalFreePtr(p) free((void *)(p))
 #define wsprintf			sprintf
 #define WAVE_FORMAT_PCM 1
